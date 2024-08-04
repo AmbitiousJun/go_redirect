@@ -9,7 +9,7 @@
 2. 拉取代码
 
 ```shell
-这里粘贴 git pull 的代码
+git clone https://github.com/AmbitiousJun/go_redirect.git
 ```
 
 3. 修改配置
