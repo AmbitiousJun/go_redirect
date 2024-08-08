@@ -46,3 +46,25 @@ docker-compose up -d --build
 ```shell
 docker compose up -d --build
 ```
+
+5. 修改配置
+
+先停止容器运行
+
+```shell
+docker-compose down
+```
+
+然后直接在宿主机上修改 `config.yml` 文件
+
+完成之后再运行容器
+
+```shell
+docker-compose up -d
+```
+
+## 日志
+
+### 2024.08.08
+
+- 加入代理功能, 只要远程的响应结果是文本类型, 则服务端直接代理返回请求结果而不使用 302 重定向
