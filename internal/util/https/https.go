@@ -1,6 +1,7 @@
 package https
 
 import (
+	"crypto/tls"
 	"fmt"
 	"io"
 	"net/http"
@@ -8,6 +9,15 @@ import (
 
 	"github.com/gin-gonic/gin"
 )
+
+var client *http.Client
+
+func init() {
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	client = &http.Client{Transport: tr}
+}
 
 // ProxyRequest 代理当前请求到指定的 remote 地址上, shouldText 表示是否只代理文本请求
 func ProxyRequest(c *gin.Context, remote string, shouldText bool) error {
@@ -32,7 +42,6 @@ func ProxyRequest(c *gin.Context, remote string, shouldText bool) error {
 	}
 
 	// 执行请求
-	client := http.DefaultClient
 	resp, err := client.Do(req)
 	if err != nil {
 		return err
