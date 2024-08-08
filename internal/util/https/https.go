@@ -50,8 +50,8 @@ func ProxyRequest(c *gin.Context, remote string, shouldText bool) error {
 
 	// 判断是否是文本请求
 	contentType := resp.Header.Get("content-type")
-	if shouldText && !IsTextContent(contentType) {
-		return fmt.Errorf("非文本响应: [%s]", contentType)
+	if shouldText && !IsProxableContent(contentType) {
+		return fmt.Errorf("不可被代理的响应类型: [%s]", contentType)
 	}
 
 	// 读取响应

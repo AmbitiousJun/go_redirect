@@ -3,7 +3,7 @@ package https
 import "strings"
 
 var (
-	TextContents = map[string]struct{}{
+	ProxableContents = map[string]struct{}{
 		"text/plain":                        {},
 		"text/html":                         {},
 		"text/css":                          {},
@@ -14,14 +14,17 @@ var (
 		"application/javascript":            {},
 		"application/xhtml+xml":             {},
 		"application/x-www-form-urlencoded": {},
+		"image/jpeg":                        {},
+		"image/jpg":                         {},
+		"image/png":                         {},
 	}
 )
 
-// IsTextContent 校验 contentType 是否是文本格式, 大小写不区分
-func IsTextContent(contentType string) bool {
+// IsProxableContent 校验 contentType 是否是可代理格式, 大小写不区分
+func IsProxableContent(contentType string) bool {
 	contentType = strings.TrimSpace(contentType)
 	contentType = strings.ToLower(contentType)
-	for content := range TextContents {
+	for content := range ProxableContents {
 		if strings.HasPrefix(contentType, content) {
 			return true
 		}
