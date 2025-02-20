@@ -26,7 +26,13 @@ func ProxyRequest(c *gin.Context, remote string, shouldText bool) error {
 	if err != nil {
 		return err
 	}
-	remoteURL.RawQuery = c.Request.URL.RawQuery
+	q := remoteURL.Query()
+	for k, vs := range c.Request.URL.Query() {
+		for _, v := range vs {
+			q.Add(k, v)
+		}
+	}
+	remoteURL.RawQuery = q.Encode()
 
 	// 创建请求
 	req, err := http.NewRequest(c.Request.Method, remoteURL.String(), c.Request.Body)
